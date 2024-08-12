@@ -36,7 +36,6 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen, data }) => {
                         placeholder="Decrypted Secret..."
                         style={{ width: "100%", height: 300 }}
                         readOnly
-                        value={data}
                     />
                     <Button variant="outlined" color="primary" onClick={handleCopyToShare}>
                         Copy to Share.
