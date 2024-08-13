@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {Grid, Box, Alert, Snackbar} from "@mui/material";
-import Sidebar from "../../components/Sidebar";
 import SecretForm from "../../components/SecretForm";
-import {SecretFormData} from "../../types/components/secret_form";
+import {SecretFormData} from "../../types/components/secretForm";
 import logo from "../../assets/logo.svg";
 import "./index.css";
 import axios from "axios";
+import SecretShareSidebar from "../../components/SecretShareSidebar";
 
 // Assume BASE_URL is defined in your .env file as REACT_APP_BASE_URL
 const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3000';
@@ -13,7 +13,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3000';
 
 const Home: React.FC = () => {
     const [openSidebar, setOpenSidebar] = useState<boolean>(false);
-    const [sidebarData, setSidebarData] = useState<SecretFormData | null>(null);
+    const [sidebarData, setSidebarData] = useState<SecretData | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -52,7 +52,7 @@ const Home: React.FC = () => {
 
     return (
         <Box id="home" sx={{ flexGrow: 1 }}>
-            <Sidebar open={openSidebar} setOpen={setOpenSidebar} data={Object.create({})} />
+            <SecretShareSidebar open={openSidebar} setOpen={setOpenSidebar} data={sidebarData} />
             <Grid container spacing={0} alignItems="center" className="homeContainer">
                 <Grid item xs={12} md={5} className="logoContainer">
                     <img src={logo} alt="Secret Share Logo" className="logo" />

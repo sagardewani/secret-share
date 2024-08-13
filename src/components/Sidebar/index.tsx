@@ -1,12 +1,6 @@
 import React from "react";
 import { Box, Button, Drawer, Stack, TextareaAutosize } from "@mui/material";
 
-interface SidebarProps {
-    open: boolean;
-    setOpen: (state: boolean) => void;
-    data: string;
-}
-
 const Sidebar: React.FC<SidebarProps> = ({ open, setOpen, data }) => {
     const toggleDrawer = (state: boolean) => () => {
         setOpen(state);
@@ -16,6 +10,8 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen, data }) => {
         navigator.clipboard.writeText(data).then(
             () => {
                 console.log("Copied to clipboard successfully!");
+                // console.log(JSON.stringify(data))
+                // console.log(DecryptMessage(data?.secretText, data?.hash))
             },
             (err) => {
                 console.error("Failed to copy: ", err);
@@ -36,6 +32,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen, data }) => {
                         placeholder="Decrypted Secret..."
                         style={{ width: "100%", height: 300 }}
                         readOnly
+                        value={data}
                     />
                     <Button variant="outlined" color="primary" onClick={handleCopyToShare}>
                         Copy to Share.

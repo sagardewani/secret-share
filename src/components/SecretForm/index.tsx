@@ -10,7 +10,7 @@ import {
     SelectChangeEvent
 } from '@mui/material';
 import './index.css';
-import {SecretFormProps, SecretFormData} from "../../types/components/secret_form";
+import {SecretFormProps, SecretFormData} from "../../types/components/secretForm";
 import {expirationOptions} from "../../constants/constant";
 
 

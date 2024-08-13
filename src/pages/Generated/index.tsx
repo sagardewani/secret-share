@@ -1,8 +1,8 @@
 import React from "react";
 import { Grid, Box, Button } from "@mui/material";
-import Sidebar from "../../components/Sidebar";
 import { useLoaderData, LoaderFunction } from "react-router-dom";
 import axios from "axios";
+import SecretRevelSidebar from "../../components/SecretRevealSidebar";
 
 
 // Assume BASE_URL is defined in your .env file as REACT_APP_BASE_URL
@@ -47,7 +47,7 @@ const Generated: React.FC<GeneratedProps> = (props) => {
     return (
         <Box>
             <h1>Reveal Secret!</h1>
-            <Sidebar open={openSidebar} setOpen={setOpenSidebar} data={result} />
+            <SecretRevelSidebar open={openSidebar} setOpen={setOpenSidebar} data={result} />
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Button
