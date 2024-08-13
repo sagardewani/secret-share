@@ -10,7 +10,7 @@ const RevealError:  React.FC<RevealErrorProps> = ({error, hash}) => {
         } else {
             setErrorText(error.message);
         }
-    }, [error]);
+    }, [error, hash]);
 
     return (
         <div id="error-page">

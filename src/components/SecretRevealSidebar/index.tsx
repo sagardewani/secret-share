@@ -18,7 +18,7 @@ const SecretRevelSidebar:  React.FC<SecretRevelSidebarProps>  = ({ open, setOpen
 
     return (
         <Box sx={{ padding: 2 }}>
-            <Sidebar open={open} setOpen={setOpen} data={sidebarData} />
+            <Sidebar open={open} setOpen={setOpen} data={sidebarData} reShare={true}/>
         </Box>
     );
 };
