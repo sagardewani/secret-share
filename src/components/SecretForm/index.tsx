@@ -58,6 +58,7 @@ const SecretForm: React.FC<SecretFormProps> = ({ onFormSubmit }) => {
                 value={formData.secret}
                 onChange={handleInputChange}
                 required
+                inputProps={{maxLength: 500}}
             />
             <FormControl fullWidth>
                 <InputLabel id="expire-label">Expires in</InputLabel>
