@@ -25,7 +25,7 @@ const SecretForm: React.FC<SecretFormProps> = ({ onFormSubmit }) => {
         const { name, value } = event.target;
         setFormData(prev => ({
             ...prev,
-            [name]: parseInt(value),
+            [name]: value,
         }));
     };
 

@@ -11,10 +11,7 @@ export const getSecretData = async (id: string): Promise<SecretData> => {
         // Handle errors and throw them for the caller to handle
         if (error.response) {
             console.error('Server responded with a non-2xx status:', error.response.status);
-            if (error.response.status === 404)
-                throw new Error(`Looks like it has never existed a secret ${id.substring(0, 32)}...\n Maybe it has already been revealed or has expired in the meantime.`);
-            else
-                throw new Error(`${error.response.data.message || error.response.statusText}`);
+            throw new Error(error.response.status);
         } else if (error.request) {
             console.error('No response received:', error.request);
             throw new Error('No response from server. Please try again later.');
