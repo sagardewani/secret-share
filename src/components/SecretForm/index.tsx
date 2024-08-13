@@ -22,10 +22,10 @@ const SecretForm: React.FC<SecretFormProps> = ({ onFormSubmit }) => {
     });
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value, checked, type } = event.target;
+        const { name, value } = event.target;
         setFormData(prev => ({
             ...prev,
-            [name]: type === 'checkbox' ? checked : value
+            [name]: parseInt(value),
         }));
     };
 
@@ -84,6 +84,7 @@ const SecretForm: React.FC<SecretFormProps> = ({ onFormSubmit }) => {
                 value={formData.expireAfterViews}
                 onChange={handleInputChange}
                 required
+                type="number"
             />
             <Button type="submit" variant="contained" sx={{
                 backgroundColor: "#637a8a",

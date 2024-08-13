@@ -11,3 +11,6 @@ export const expirationOptions = [
     { label: "1 Day", value: 1440 },
     { label: "2 Days", value: 2880 }
 ];
+
+
+export const BASE_URL = process.env.REACT_APP_BASE_URL;

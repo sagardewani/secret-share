@@ -6,10 +6,7 @@ import logo from "../../assets/logo.svg";
 import "./index.css";
 import axios from "axios";
 import SecretShareSidebar from "../../components/SecretShareSidebar";
-
-// Assume BASE_URL is defined in your .env file as REACT_APP_BASE_URL
-const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3000';
-
+import {BASE_URL} from "../../constants/constant";
 
 const Home: React.FC = () => {
     const [openSidebar, setOpenSidebar] = useState<boolean>(false);

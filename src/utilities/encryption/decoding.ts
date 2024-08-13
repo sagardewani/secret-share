@@ -8,23 +8,14 @@ function deriveKeyFromHash(hash: string): CryptoJS.lib.WordArray {
 
 // Decrypt the message
 export const DecryptMessage = (encryptedText: string, hash: string) : string => {
-    debugger;
+    const iv = CryptoJS.enc.Hex.parse(encryptedText.substr(0,32))
+    const cypherText = CryptoJS.enc.Hex.parse(encryptedText.substr(32))
     const key = deriveKeyFromHash(hash);
-    const encryptedHexStr = CryptoJS.enc.Hex.parse(encryptedText);
-    const iv = CryptoJS.lib.WordArray.create(encryptedHexStr.words.slice(0, 4)); // first 16 bytes
-    const ciphertext = CryptoJS.lib.WordArray.create(encryptedHexStr.words.slice(4));
 
-    // Create a CipherParams object
-    const cipherParams = CryptoJS.lib.CipherParams.create({
-        ciphertext: ciphertext,
-        iv: iv,
-    });
-
-    const decrypted = CryptoJS.AES.decrypt(cipherParams, key, {
-        iv,
-        mode: CryptoJS.mode.CFB,
-        padding: CryptoJS.pad.NoPadding
-    });
-
-    return decrypted.toString(CryptoJS.enc.Utf8);
+    // @ts-ignore !!!!!!!! IMPORTANT IF YOU USE TYPESCRIPT COMPILER
+    const decrypted = CryptoJS.AES.decrypt({ciphertext: cypherText}, key, {
+        mode: CryptoJS.mode.CBC,
+        iv: iv
+    })
+    return decrypted.toString(CryptoJS.enc.Utf8)
 }

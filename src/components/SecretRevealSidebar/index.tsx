@@ -5,6 +5,7 @@ import {DecryptMessage} from "../../utilities/encryption/decoding";
 
 const SecretRevelSidebar:  React.FC<SecretRevelSidebarProps>  = ({ open, setOpen, data }) => {
     const [sidebarData, setSidebarData] = useState<string>('');
+
     useEffect(() => {
         if (data) {
             const getSecretData = () => {

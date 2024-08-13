@@ -1,48 +1,31 @@
-import React from "react";
-import { Grid, Box, Button } from "@mui/material";
-import { useLoaderData, LoaderFunction } from "react-router-dom";
-import axios from "axios";
+import React, {useEffect, useState} from "react";
+import {Alert, Box, Button, Grid, Snackbar} from "@mui/material";
+import { useLoaderData, useRouteError} from "react-router-dom";
 import SecretRevelSidebar from "../../components/SecretRevealSidebar";
 
+const Generated: React.FC = () => {
+    const [openSidebar, setOpenSidebar] = useState<boolean>(false);
+    const [snackbarOpen, setSnackbarOpen] = useState<boolean>(false);
+    const [snackbarMessage, setSnackbarMessage] = useState<string>('');
+    const [revealed, setRevealed] = useState<boolean>(false);
+    const result  = useLoaderData() as SecretData;
+    const error = useRouteError();
 
-// Assume BASE_URL is defined in your .env file as REACT_APP_BASE_URL
-const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3000';
+    useEffect(() => {
+        if (error) {
+            setSnackbarMessage((error as any).message || 'An unknown error occurred');
+            setSnackbarOpen(true);
+        }
+    }, [error]);
 
-// Define the return type of the API function
-const getSecretData = (id: string): Promise<string> => {
-    return axios.get(`${BASE_URL}/secret/${id}`)
-        .then(response => {
-            // Return the secret data
-            return response.data;
-        })
-        .catch(error => {
-            // Handle errors and throw them for the caller to handle
-            if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
-                console.error('Server responded with a non-2xx status:', error.response.status);
-                throw new Error(`Server error: ${error.response.data.message || error.response.statusText}`);
-            } else if (error.request) {
-                // The request was made but no response was received
-                console.error('No response received:', error.request);
-                throw new Error('No response from server. Please try again later.');
-            } else {
-                // Something happened in setting up the request that triggered an Error
-                console.error('Error setting up request:', error.message);
-                throw new Error('Error in request setup. Please check your network.');
-            }
-        });
-};
+    const handleSnackbarClose = () => {
+        setSnackbarOpen(false);
+    };
 
-// Define the loader function with proper types
-export const loader: LoaderFunction =  ({ params }) => {
-    const result = getSecretData(params.id as string);
-    return { result };
-};
-
-const Generated: React.FC<GeneratedProps> = (props) => {
-    const [openSidebar, setOpenSidebar] = React.useState<boolean>(false);
-    const { result } = useLoaderData() as LoaderData;
+    const handleReveal = () => {
+        setOpenSidebar(true);
+        setRevealed(true);
+    }
 
     return (
         <Box>
@@ -50,15 +33,28 @@ const Generated: React.FC<GeneratedProps> = (props) => {
             <SecretRevelSidebar open={openSidebar} setOpen={setOpenSidebar} data={result} />
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        onClick={() => setOpenSidebar(true)}
-                    >
-                        Reveal Now
+                    <Button variant="outlined" onClick={handleReveal} sx={{
+                        backgroundColor: "#637a8a",
+                        color: "#fff",
+                        marginTop: "0.4rem",
+                        fontWeight: "800"
+                    }}
+                    disabled={revealed}>
+                        {revealed ? `Secret Revealed` : `Reveal Secret Now`}
                     </Button>
                 </Grid>
             </Grid>
+
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={6000}
+                onClose={handleSnackbarClose}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            >
+                <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: '100%' }}>
+                    {snackbarMessage}
+                </Alert>
+            </Snackbar>
         </Box>
     );
 };
