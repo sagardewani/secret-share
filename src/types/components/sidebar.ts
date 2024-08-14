@@ -3,5 +3,7 @@ interface SidebarProps {
     setOpen: (state: boolean) => void;
     data: string;
     reShare?: boolean;
+    title: string;
+    subTitle: string;
 }
 
